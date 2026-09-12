@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lavajato MF — Agendamento inteligente</title>
+  <link rel="icon" href="img/logo.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-logo" src="img/logo.png" alt="Lavajato MF" />
+      <div>LAVA JATO MF<br><small>Agenda inteligente</small></div>
+    </div>
+    <nav class="nav">
+        <button type="button" class="nav-btn active" data-page="page-home">Início</button>
+        <button type="button" class="nav-btn" data-page="page-agendar">Agendar</button>
+        <button type="button" class="nav-btn" data-page="page-consultas">Meu horário</button>
+        <button type="button" class="nav-btn" data-page="page-lembretes">Lembretes</button>
+        <button type="button" class="nav-btn" data-page="page-admin">Painel</button>
+    </nav>
+  </header>
+
+  <!-- HOME -->
+  <div id="page-home" class="page active">
+    <section class="hero">
+      <div>
+        <div class="pill">Vagas limitadas · confirmação na hora · lembrete no WhatsApp</div>
+        <h1>Seu carro brilha.<br>Seu horário não falha.</h1>
+        <p class="lead">
+          Sistema feito para lava-jato com alta demanda: o cliente escolhe só o que ainda tem vaga,
+          recebe confirmação imediata e dois lembretes automáticos para não esquecer.
+        </p>
+        <div class="pills">
+          <span class="pill">3 carros por horário</span>
+          <span class="pill">Lembrete 24h e 2h antes</span>
+          <span class="pill">Cancelou? A vaga volta sozinha</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#" data-page="page-agendar" onclick="showPage('page-agendar')">Quero agendar</a>
+          <a class="btn btn-ghost" href="#" data-page="page-consultas" onclick="showPage('page-consultas')">Consultar meu horário</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img class="hero-logo" src="img/logo.png" alt="Logo Lavajato MF" />
+        <h3>Hoje na loja</h3>
+        <div class="stat-row">
+          <div class="stat"><b id="stat-today">0</b><span>agendados hoje</span></div>
+          <div class="stat"><b id="stat-free">0</b><span>vagas livres hoje</span></div>
+          <div class="stat"><b id="stat-reminders">0</b><span>lembretes na fila</span></div>
+          <div class="stat"><b>08–18h</b><span>seg a sáb</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Serviços</h2>
+      <p class="section-sub">Escolha o pacote. O tempo de cada serviço entra no cálculo da agenda.</p>
+      <div class="services">
+        <article class="service">
+          <h3>Lavagem Simples</h3>
+          <div class="price">R$ 40</div>
+          <ul><li>30 minutos</li><li>Lataria e pneus</li><li>Ideal para manutenção semanal</li></ul>
+        </article>
+        <article class="service">
+          <h3>Lavagem Completa</h3>
+          <div class="price">R$ 70</div>
+          <ul><li>45 minutos</li><li>Externo + interno + vidros</li><li>O mais pedido</li></ul>
+        </article>
+        <article class="service">
+          <h3>Premium + Cera</h3>
+          <div class="price">R$ 120</div>
+          <ul><li>60 minutos</li><li>Completa + cera protetora</li><li>Acabamento de vitrine</li></ul>
+        </article>
+        <article class="service">
+          <h3>Motor e Chassis</h3>
+          <div class="price">R$ 90</div>
+          <ul><li>40 minutos</li><li>Lavagem técnica</li><li>Pode combinar com outra</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section style="padding-top:0">
+      <h2 class="section-title">Como o sistema resolve os problemas</h2>
+      <div class="services">
+        <article class="service">
+          <h3>1. Alta demanda</h3>
+          <p>Cada faixa de 30 minutos tem no máximo 3 carros. Horário cheio some da tela. Não tem superlotação na rua nem “chega que a gente encaixa”.</p>
+        </article>
+        <article class="service">
+          <h3>2. Cliente esquece</h3>
+          <p>Dois disparos automáticos: 24 horas e 2 horas antes. O atendente só clica em “Enviar WhatsApp” — o texto já vai pronto.</p>
+        </article>
+        <article class="service">
+          <h3>3. Falta e furo na fila</h3>
+          <p>Se cancelar, a vaga reabre na hora. No painel o lojista marca “faltou” ou “concluído” e vê a ocupação do dia.</p>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <!-- AGENDAR -->
+  <div id="page-agendar" class="page">
+    <section>
+      <h2 class="section-title">Agendar lavagem</h2>
+      <p class="section-sub">Só aparecem horários com vaga. Confirmação imediata + lembretes.</p>
+      <div id="toast" class="alert hidden"></div>
+      <div class="booking-grid">
+        <form id="bk-form" class="card">
+          <div class="row-2">
+            <div>
+              <label for="bk-name">Nome</label>
+              <input id="bk-name" required placeholder="Seu nome" />
+            </div>
+            <div>
+              <label for="bk-phone">WhatsApp com DDD</label>
+              <input id="bk-phone" required placeholder="11999998888" />
+            </div>
+          </div>
+          <div class="row-2">
+            <div>
+              <label for="bk-email">E-mail (opcional)</label>
+              <input id="bk-email" type="email" placeholder="voce@email.com" />
+            </div>
+            <div>
+              <label for="bk-plate">Placa</label>
+              <input id="bk-plate" placeholder="ABC1D23" />
+            </div>
+          </div>
+          <div class="row-2">
+            <div>
+              <label for="bk-vehicle">Tipo de veículo</label>
+              <select id="bk-vehicle">
+                <option>Hatch</option>
+                <option>Sedan</option>
+                <option>SUV</option>
+                <option>Pickup</option>
+                <option>Moto</option>
+              </select>
+            </div>
+            <div>
+              <label for="bk-service">Serviço</label>
+              <select id="bk-service"></select>
+            </div>
+          </div>
+          <label for="bk-date">Data</label>
+          <input id="bk-date" type="date" required />
+          <label>Horário disponível</label>
+          <input type="hidden" id="bk-time" />
+          <div id="slots" class="slots"></div>
+          <div id="slot-info" style="margin-top:8px;font-size:13px;color:#6b8499"></div>
+          <div class="legend">
+            <span><i class="dot" style="background:#e10600"></i> livre</span>
+            <span><i class="dot" style="background:#9ca3af"></i> lotado / passado</span>
+          </div>
+          <label for="bk-notes">Observação</label>
+          <textarea id="bk-notes" rows="2" placeholder="Ex.: mancha no capô, criança no banco..."></textarea>
+          <button class="btn btn-primary" style="margin-top:16px;width:100%" type="submit">Confirmar agendamento</button>
+        </form>
+        <div>
+          <div id="confirm-box" class="card hidden"></div>
+          <div class="card" style="margin-top:16px">
+            <h3>Regras da agenda</h3>
+            <p style="color:#6b8499;margin-top:8px;line-height:1.6">
+              Funcionamento de segunda a sábado, 8h às 18h.<br>
+              Tolerância de 10 minutos. Depois disso a vaga pode ser liberada.<br>
+              Cancelamentos pelo menu <b>Meu horário</b>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CONSULTAS -->
+  <div id="page-consultas" class="page">
+    <section>
+      <h2 class="section-title">Meu horário</h2>
+      <p class="section-sub">Consulte com o mesmo WhatsApp usado no agendamento.</p>
+      <div class="card" style="max-width:640px">
+        <label>Telefone</label>
+        <div class="toolbar">
+          <input id="find-phone" placeholder="11999998888" />
+          <button class="btn btn-dark" onclick="renderMySearch()">Buscar</button>
+        </div>
+        <div id="my-bookings"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- LEMBRETES -->
+  <div id="page-lembretes" class="page">
+    <section>
+      <h2 class="section-title">Central de lembretes</h2>
+      <p class="section-sub">
+        O sistema calcula sozinho dois disparos por agendamento. Nesta demo o envio é via WhatsApp
+        com texto pronto — em produção isso pode ir automático por API (WhatsApp Business / SMS).
+      </p>
+      <h3 style="margin-bottom:10px">Prontos para enviar agora</h3>
+      <div id="rem-due" class="booking-list"></div>
+      <h3 style="margin:22px 0 10px">Fila futura</h3>
+      <div id="rem-upcoming" class="booking-list"></div>
+    </section>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="page-admin" class="page">
+    <section>
+      <h2 class="section-title">Painel da loja</h2>
+      <div id="admin-gate" class="card" style="max-width:420px">
+        <p>Acesso da equipe. PIN da demonstração: <b>1234</b></p>
+        <label>PIN</label>
+        <input id="admin-pin" type="password" placeholder="••••" />
+        <button class="btn btn-dark" style="margin-top:12px" onclick="tryAdmin()">Entrar</button>
+      </div>
+      <div id="admin-panel" class="hidden">
+        <div class="toolbar">
+          <div>
+            <label>Dia</label>
+            <input id="admin-date" type="date" onchange="renderAdmin()" />
+          </div>
+          <button class="btn btn-outline" onclick="resetDemo()">Resetar demo</button>
+        </div>
+        <div id="admin-kpis" class="services" style="margin-bottom:18px"></div>
+        <div class="card" id="admin-table"></div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div>© 2026 Lavajato MF · Agenda inteligente</div>
+    <div>Demo local — dados salvos só neste navegador</div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
