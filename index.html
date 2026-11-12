@@ -14,11 +14,12 @@
       <div>LAVA JATO MF<br><small>Agenda inteligente</small></div>
     </div>
     <nav class="nav">
-        <button type="button" class="nav-btn active" data-page="page-home">Início</button>
-        <button type="button" class="nav-btn" data-page="page-agendar">Agendar</button>
-        <button type="button" class="nav-btn" data-page="page-consultas">Meu horário</button>
-        <button type="button" class="nav-btn" data-page="page-lembretes">Lembretes</button>
-        <button type="button" class="nav-btn" data-page="page-admin">Painel</button>
+      <button type="button" class="nav-btn active" data-page="page-home">Início</button>
+      <button type="button" class="nav-btn" data-page="page-agendar">Agendar</button>
+      <button type="button" class="nav-btn" data-page="page-consultas">Meu horário</button>
+      <button type="button" class="nav-btn" data-page="page-lembretes">Lembretes</button>
+      <button type="button" class="nav-btn" data-page="page-admin">Painel</button>
+      <button type="button" class="nav-btn" id="btn-localizacao">Localização</button>
     </nav>
   </header>
 
@@ -38,45 +39,45 @@
           <span class="pill">Cancelou? A vaga volta sozinha</span>
         </div>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#" data-page="page-agendar" onclick="showPage('page-agendar')">Quero agendar</a>
-          <a class="btn btn-ghost" href="#" data-page="page-consultas" onclick="showPage('page-consultas')">Consultar meu horário</a>
+          <button type="button" class="btn btn-primary" data-page="page-agendar">Quero agendar</button>
+          <button type="button" class="btn btn-ghost" data-page="page-consultas">Consultar meu horário</button>
         </div>
       </div>
       <div class="hero-card">
         <img class="hero-logo" src="img/logo.png" alt="Logo Lavajato MF" />
-        <h3>Hoje na loja</h3>
+        <h3>Hoje no lava-jato</h3>
         <div class="stat-row">
           <div class="stat"><b id="stat-today">0</b><span>agendados hoje</span></div>
           <div class="stat"><b id="stat-free">0</b><span>vagas livres hoje</span></div>
           <div class="stat"><b id="stat-reminders">0</b><span>lembretes na fila</span></div>
-          <div class="stat"><b>08–18h</b><span>seg a sáb</span></div>
+          <div class="stat"><b>16h / 17h30</b><span>seg–sex / sáb</span></div>
         </div>
       </div>
     </section>
 
     <section>
-      <h2 class="section-title">Serviços</h2>
-      <p class="section-sub">Escolha o pacote. O tempo de cada serviço entra no cálculo da agenda.</p>
+      <h2 class="section-title">Preços a partir de</h2>
+      <p class="section-sub">O valor final pode variar conforme o estado do veículo. Confirme no lava-jato.</p>
       <div class="services">
         <article class="service">
-          <h3>Lavagem Simples</h3>
-          <div class="price">R$ 40</div>
-          <ul><li>30 minutos</li><li>Lataria e pneus</li><li>Ideal para manutenção semanal</li></ul>
+          <h3>Carro baixo</h3>
+          <div class="price">R$ 80</div>
+          <ul><li>Hatch e sedan</li><li>A partir de R$ 80</li><li>Segunda a sexta até 16h</li></ul>
         </article>
         <article class="service">
-          <h3>Lavagem Completa</h3>
-          <div class="price">R$ 70</div>
-          <ul><li>45 minutos</li><li>Externo + interno + vidros</li><li>O mais pedido</li></ul>
+          <h3>Carro SUV</h3>
+          <div class="price">R$ 100</div>
+          <ul><li>SUV e utilitário</li><li>A partir de R$ 100</li><li>Sábado até 17h30</li></ul>
         </article>
         <article class="service">
-          <h3>Premium + Cera</h3>
-          <div class="price">R$ 120</div>
-          <ul><li>60 minutos</li><li>Completa + cera protetora</li><li>Acabamento de vitrine</li></ul>
+          <h3>Caminhonete</h3>
+          <div class="price">R$ 150</div>
+          <ul><li>Picape / caminhonete</li><li>A partir de R$ 150</li><li>Vagas limitadas por horário</li></ul>
         </article>
         <article class="service">
-          <h3>Motor e Chassis</h3>
-          <div class="price">R$ 90</div>
-          <ul><li>40 minutos</li><li>Lavagem técnica</li><li>Pode combinar com outra</li></ul>
+          <h3>Moto</h3>
+          <div class="price">R$ 50</div>
+          <ul><li>Motos em geral</li><li>A partir de R$ 50</li><li>Agende e evite espera</li></ul>
         </article>
       </div>
     </section>
@@ -94,7 +95,7 @@
         </article>
         <article class="service">
           <h3>3. Falta e furo na fila</h3>
-          <p>Se cancelar, a vaga reabre na hora. No painel o lojista marca “faltou” ou “concluído” e vê a ocupação do dia.</p>
+          <p>Se cancelar, a vaga reabre na hora. No painel o Felipe ou o Márcio marcam “faltou” ou “concluído” e vê a ocupação do dia.</p>
         </article>
       </div>
     </section>
@@ -131,13 +132,8 @@
           <div class="row-2">
             <div>
               <label for="bk-vehicle">Tipo de veículo</label>
-              <select id="bk-vehicle">
-                <option>Hatch</option>
-                <option>Sedan</option>
-                <option>SUV</option>
-                <option>Pickup</option>
-                <option>Moto</option>
-              </select>
+              <select id="bk-vehicle"></select>
+              <p id="price-hint" style="margin-top:6px;font-size:13px;color:#6b8499"></p>
             </div>
             <div>
               <label for="bk-service">Serviço</label>
@@ -163,7 +159,8 @@
           <div class="card" style="margin-top:16px">
             <h3>Regras da agenda</h3>
             <p style="color:#6b8499;margin-top:8px;line-height:1.6">
-              Funcionamento de segunda a sábado, 8h às 18h.<br>
+              Funcionamento: segunda a sexta, 8h às 16h.<br>
+              Sábado, 8h às 17h30. Domingo fechado.<br>
               Tolerância de 10 minutos. Depois disso a vaga pode ser liberada.<br>
               Cancelamentos pelo menu <b>Meu horário</b>.
             </p>
@@ -207,9 +204,9 @@
   <!-- ADMIN -->
   <div id="page-admin" class="page">
     <section>
-      <h2 class="section-title">Painel da loja</h2>
+      <h2 class="section-title">Painel do lava-jato</h2>
       <div id="admin-gate" class="card" style="max-width:420px">
-        <p>Acesso da equipe. PIN da demonstração: <b>1234</b></p>
+        <p>Acesso do Felipe e do Márcio. PIN da demonstração: <b>1234</b></p>
         <label>PIN</label>
         <input id="admin-pin" type="password" placeholder="••••" />
         <button class="btn btn-dark" style="margin-top:12px" onclick="tryAdmin()">Entrar</button>
@@ -230,7 +227,6 @@
 
   <footer>
     <div>© 2026 Lavajato MF · Agenda inteligente</div>
-    <div>Demo local — dados salvos só neste navegador</div>
   </footer>
 
   <script src="js/app.js"></script>
